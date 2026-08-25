@@ -1,15 +1,14 @@
 import { defineAstroPaperConfig } from "./src/types/config";
 
 export default defineAstroPaperConfig({
-  site: {
-    url: "https://astro-paper.pages.dev/",
-    title: "AstroPaper",
-    description: "A minimal, responsive and SEO-friendly Astro blog theme.",
-    author: "Sat Naing",
-    profile: "https://satna.ing",
+ url: "https://emirgultekin.com/",
+    title: "Emir Gültekin",
+    description: "Emir Gültekin - Kişisel Blog ve Notlar",
+    author: "Emir Gültekin",
+    profile: "https://emirgultekin.com/",
     ogImage: "default-og.jpg",
-    lang: "en",
-    timezone: "Asia/Bangkok",
+    lang: "tr",
+    timezone: "Europe/Istanbul",
     dir: "ltr",
   },
   posts: {
