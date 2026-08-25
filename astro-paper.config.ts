@@ -23,9 +23,8 @@ export default defineAstroPaperConfig({
     showArchives: true,
     showBackButton: true,
     editPost: {
+      enabled: true,
       url: "https://github.com/xemirgultekin-hue/Emir-G-ltekin/edit/main/src/content/posts",
-      text: "Suggest Changes",
-      appendFilePath: true,
     },
   },
 });
