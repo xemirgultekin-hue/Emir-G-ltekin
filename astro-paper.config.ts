@@ -8,7 +8,7 @@ export default defineAstroPaperConfig({
     author: "Emir Gültekin",
     profile: "https://emirgultekin.com/",
     ogImage: "default-og.jpg",
-    lang: "tr",
+    lang: "en",
     timezone: "Europe/Istanbul",
     dir: "ltr",
   },
