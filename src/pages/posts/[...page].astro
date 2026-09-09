@@ -1,40 +1,70 @@
 ---
-import type { GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Breadcrumb from "@/components/Breadcrumb.astro";
-import Main from "@/components/Main.astro";
-import Card from "@/components/Card.astro";
-import Footer from "@/components/Footer.astro";
-import Pagination from "@/components/Pagination.astro";
-import { getSortedPosts } from "@/utils/getSortedPosts";
-import { useTranslations } from "@/i18n";
-import config from "@/config";
+import { getCollection } from "astro:content";
 
-export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection("posts", ({ data }) => !data.draft);
-  return paginate(getSortedPosts(posts), { pageSize: config.posts.perPage });
-}) satisfies GetStaticPaths;
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
 
-const { page } = Astro.props;
-
-const locale = Astro.currentLocale ?? config.site.lang;
-const t = useTranslations(locale);
+const { post } = Astro.props;
+const { Content } = await post.render();
 ---
 
-<Layout title={`${t.pages.postsTitle} | ${config.site.title}`}>
-  <Header />
+<Layout title={`${post.data.title} | Emir Gültekin`} description={post.data.description}>
+  <article class="max-w-3xl mx-auto">
+    <!-- Yazı Başlığı & Meta Bilgiler -->
+    <header class="border-b border-stone-300 pb-6 mb-8 text-center">
+      <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-4">
+        {post.data.title}
+      </h1>
+      
+      <div class="flex items-center justify-center gap-4 text-xs sm:text-sm text-stone-500 font-sans">
+        <span>Yazar: <strong>Emir Gültekin</strong></span>
+        <span>•</span>
+        <span>{new Date(post.data.pubDatetime).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}</span>
+        <span>•</span>
+        <!-- Okunma Sayacı -->
+        <span class="flex items-center gap-1">
+          👁️ <span id="busuanzi_value_page_pv">...</span> Okunma
+        </span>
+      </div>
+    </header>
 
-  <Breadcrumb />
+    <!-- Büyük Kapak Fotoğrafı -->
+    {post.data.coverImage && (
+      <div class="mb-8 overflow-hidden aspect-[16/9] shadow-sm">
+        <img 
+          src={post.data.coverImage} 
+          alt={post.data.title}
+          class="w-full h-full object-cover"
+        />
+      </div>
+    )}
 
-  <Main pageTitle={t.pages.postsTitle} pageDesc={t.pages.postsDesc}>
-    <ul>
-      {page.data.map(data => <Card {...data} />)}
-    </ul>
-  </Main>
+    <!-- Yazı Gövdesi -->
+    <div class="prose prose-stone prose-lg max-w-none leading-relaxed text-stone-900 font-serif">
+      <Content />
+    </div>
 
-  <Pagination {page} />
+    <!-- Yorumlar Alanı (Cusdis - Ücretsiz, reklamsız ve sade) -->
+    <section class="mt-16 pt-8 border-t-2 border-stone-900">
+      <h3 class="text-2xl font-bold mb-6">Yorumlar</h3>
+      <div 
+        id="cusdis_thread"
+        data-host="https://cusdis.com"
+        data-app-id="98a12dc6-ecb4-4e92-95f7-873b88d30e38"
+        data-page-id={post.slug}
+        data-page-url={Astro.url.href}
+        data-page-title={post.data.title}
+      ></div>
+      <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    </section>
+  </article>
 
-  <Footer noMarginTop={page.lastPage > 1} />
+  <!-- Sayaç Scripti (Busuanzi - Statik siteler için anlık sayaç) -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </Layout>
