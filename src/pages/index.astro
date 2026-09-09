@@ -9,9 +9,9 @@ const heroPost = posts[0];
 const otherPosts = posts.slice(1);
 ---
 
-<Layout title="Emir Gültekin | Ana Sayfa">
+<Layout title="Emir Gültekin">
   {heroPost && (
-    <!-- MANŞET YAZISI (Fatih Altaylı Formatı) -->
+    <!-- BÜYÜK MANŞET YAZISI -->
     <section class="border-b-2 border-stone-900 pb-10 mb-10">
       <a href={`/posts/${heroPost.slug}/`} class="group block">
         {heroPost.data.coverImage && (
@@ -23,7 +23,9 @@ const otherPosts = posts.slice(1);
             />
           </div>
         )}
-        <div class="text-xs uppercase font-bold text-red-700 tracking-wider mb-2">Öne Çıkan / Son Yazı</div>
+        <div class="text-xs uppercase font-bold text-red-700 tracking-wider mb-2">
+          Son Yazı / Manşet
+        </div>
         <h1 class="text-3xl sm:text-4xl font-bold leading-tight group-hover:underline mb-3">
           {heroPost.data.title}
         </h1>
@@ -32,18 +34,18 @@ const otherPosts = posts.slice(1);
             {heroPost.data.description}
           </p>
         )}
-        <div class="text-xs text-stone-500 font-sans">
+        <div class="text-xs text-stone-500">
           {new Date(heroPost.data.pubDatetime).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}
         </div>
       </a>
     </section>
   )}
 
-  <!-- DİĞER YAZILAR IZGARASI (2 Sütun) -->
+  <!-- DİĞER KÖŞE YAZILARI (2 Sütun Izgara) -->
   {otherPosts.length > 0 && (
     <section>
       <h2 class="text-xl font-bold border-b border-stone-300 pb-2 mb-6 uppercase tracking-wider">
-        Son Köşe Yazıları ve Notlar
+        Önceki Yazılar & Notlar
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {otherPosts.map((post) => (
@@ -66,7 +68,7 @@ const otherPosts = posts.slice(1);
                   {post.data.description}
                 </p>
               )}
-              <div class="text-xs text-stone-400 font-sans">
+              <div class="text-xs text-stone-400">
                 {new Date(post.data.pubDatetime).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}
               </div>
             </a>
