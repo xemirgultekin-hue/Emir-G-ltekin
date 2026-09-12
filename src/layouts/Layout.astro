@@ -2,6 +2,7 @@
 interface Props {
   title?: string;
   description?: string;
+  [key: string]: any;
 }
 
 const { title = "Emir Gültekin", description = "Kişisel Notlar ve Analizler" } = Astro.props;
@@ -23,12 +24,10 @@ const today = new Date().toLocaleDateString("tr-TR", {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="bg-[#fcfbf9] text-[#1a1a1a] antialiased">
-    <!-- Üst Bar: Tarih & Şehir -->
     <header class="border-b border-[#e5e2dc] py-2 px-4 text-xs text-stone-500 uppercase tracking-widest text-center">
       {today} — İstanbul
     </header>
 
-    <!-- Gazete Başlığı / Yazar İmzası -->
     <div class="border-b-2 border-stone-900 py-6 text-center">
       <a href="/" class="text-4xl sm:text-5xl font-black tracking-tight uppercase hover:opacity-90 transition-opacity">
         EMİR GÜLTEKİN
@@ -38,17 +37,14 @@ const today = new Date().toLocaleDateString("tr-TR", {
       </p>
     </div>
 
-    <!-- Ana İçerik -->
     <main class="max-w-4xl mx-auto px-4 py-8">
       <slot />
     </main>
 
-    <!-- Alt Bilgi (Footer) -->
     <footer class="border-t border-[#e5e2dc] mt-16 py-8 text-center text-xs text-stone-500">
       <p>© {new Date().getFullYear()} Emir Gültekin. Tüm hakları saklıdır.</p>
     </footer>
 
-    <!-- Global Tipografi -->
     <style is:global>
       html, body, p, h1, h2, h3, h4, h5, h6, span, a, li, button {
         font-family: "Times New Roman", Times, Georgia, serif !important;
