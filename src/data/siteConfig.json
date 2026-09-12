@@ -3,11 +3,26 @@
   "siteSubtitle": "Uluslararası İlişkiler, Küresel Strateji ve Siyaset Bilimi",
   "locationTag": "İstanbul",
   "navLinks": [
-    { "label": "Ana Sayfa", "url": "/" },
-    { "label": "Hakkımda", "url": "/hakkimda" },
-    { "label": "X", "url": "https://x.com" },
-    { "label": "LinkedIn", "url": "https://linkedin.com" },
-    { "label": "İletişim", "url": "mailto:iletisim@emirgultekin.com" }
+    {
+      "label": "Ana Sayfa",
+      "url": "/"
+    },
+    {
+      "label": "Hakkımda",
+      "url": "/hakkimda"
+    },
+    {
+      "label": "X",
+      "url": "https://x.com/xemirgultekin"
+    },
+    {
+      "label": "linkedin",
+      "url": "https://www.linkedin.com/in/emir-gültekin-33613a429?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+    },
+    {
+      "label": "İletişim",
+      "url": "xemirgultekin@gmail.com"
+    }
   ],
   "footerText": "Tüm hakları saklıdır."
 }
