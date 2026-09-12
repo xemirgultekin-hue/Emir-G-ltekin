@@ -244,7 +244,7 @@ const today = new Date().toLocaleDateString("tr-TR", {
     <div class="top-bar-wrapper">
       <div class="top-bar">
         <span>{today} — {config.locationTag}</span>
-        <button class="hamburger-btn" id="menuToggle" aria-label="Menu Ac">
+        <button class="hamburger-btn" id="menuToggle" aria-label="Menü Aç">
           <span></span>
           <span></span>
           <span></span>
@@ -254,13 +254,12 @@ const today = new Date().toLocaleDateString("tr-TR", {
 
     <div class="backdrop" id="backdrop"></div>
     <nav class="side-menu" id="sideMenu">
-      <h4>Menu</h4>
-      <a href="/">Ana Sayfa</a>
-      <a href="/hakkimda">Hakkimda</a>
-      {config.twitter && <a href={config.twitter} target="_blank" rel="noopener">X / Twitter</a>}
-      {config.linkedin && <a href={config.linkedin} target="_blank" rel="noopener">LinkedIn</a>}
-      {config.email && <a href={`mailto:${config.email}`}>Iletisim</a>}
-      <a href="/admin" style="margin-top: 20px; font-size: 0.8rem; color: #888;">Yonetim Paneli</a>
+      <h4>Menü</h4>
+      {(config.navLinks || []).map((item: any) => (
+        <a href={item.url} target={item.url.startsWith("http") ? "_blank" : "_self"} rel="noopener">
+          {item.label}
+        </a>
+      ))}
     </nav>
 
     <header class="masthead container">
@@ -271,11 +270,11 @@ const today = new Date().toLocaleDateString("tr-TR", {
     </header>
 
     <nav class="nav-bar container">
-      <a href="/">Ana Sayfa</a>
-      <a href="/hakkimda">Hakkimda</a>
-      {config.twitter && <a href={config.twitter} target="_blank" rel="noopener">X / Twitter</a>}
-      {config.linkedin && <a href={config.linkedin} target="_blank" rel="noopener">LinkedIn</a>}
-      {config.email && <a href={`mailto:${config.email}`}>Iletisim</a>}
+      {(config.navLinks || []).map((item: any) => (
+        <a href={item.url} target={item.url.startsWith("http") ? "_blank" : "_self"} rel="noopener">
+          {item.label}
+        </a>
+      ))}
     </nav>
 
     <main class="container" style="padding-top: 25px;">
