@@ -8,4 +8,4 @@ tags:
 draft: false
 ---
 
-Kişisel web sitem ve blogum yayında. Uluslararası ilişkiler, strateji ve kişisel notlarımı buradan paylaşacağım.
+⌛️
