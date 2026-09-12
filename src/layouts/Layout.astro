@@ -4,7 +4,6 @@ import config from "../data/siteConfig.json";
 interface Props {
   title?: string;
   description?: string;
-  [key: string]: any;
 }
 
 const { title = config.siteTitle, description = config.siteSubtitle } = Astro.props;
@@ -162,57 +161,6 @@ const today = new Date().toLocaleDateString("tr-TR", {
         font-weight: 600;
       }
       .nav-bar a:hover { text-decoration: underline; }
-
-      .hero-card {
-        border-bottom: 1px solid #1a1a1a;
-        padding: 35px 0;
-        margin-bottom: 35px;
-      }
-      .hero-tag {
-        color: #b91c1c;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-      .hero-title {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
-        font-weight: 700;
-        line-height: 1.25;
-        margin-bottom: 12px;
-      }
-      .hero-title:hover { text-decoration: underline; }
-      .hero-desc { font-size: 1.1rem; color: #333; margin-bottom: 12px; }
-      .post-meta { font-size: 0.8rem; color: #777; }
-
-      .section-title {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-size: 1.25rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border-bottom: 1px solid #dcd7ce;
-        padding-bottom: 8px;
-        margin-bottom: 25px;
-      }
-      .archive-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 30px;
-        margin-bottom: 50px;
-      }
-      .archive-item { border-bottom: 1px solid #e5e0d8; padding-bottom: 20px; }
-      .archive-item h3 {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-size: 1.3rem;
-        font-weight: 700;
-        line-height: 1.3;
-        margin-bottom: 8px;
-      }
-      .archive-item h3:hover { text-decoration: underline; }
-      .archive-item p { font-size: 0.95rem; color: #444; margin-bottom: 10px; }
 
       .article-header {
         border-bottom: 1px solid #dcd7ce;

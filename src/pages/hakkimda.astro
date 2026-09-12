@@ -1,0 +1,38 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getEntry, render } from "astro:content";
+
+let title = "Hakkımda";
+let description = "Emir Gültekin — Biyografi ve Çalışma Alanları";
+let ContentComponent = null;
+
+try {
+  const entry = await getEntry("pages", "hakkimda");
+  if (entry) {
+    title = entry.data.title || title;
+    description = entry.data.description || description;
+    const rendered = await render(entry);
+    ContentComponent = rendered.Content;
+  }
+} catch (e) {
+  console.error(e);
+}
+---
+
+<Layout title={`${title} | Emir Gültekin`} description={description}>
+  <article>
+    <header class="article-header">
+      <h1>{title}</h1>
+    </header>
+    <div class="article-body">
+      {ContentComponent ? (
+        <ContentComponent />
+      ) : (
+        <div>
+          <p>İstanbul Üniversitesi Siyasal Bilgiler Fakültesi, Siyaset Bilimi ve Uluslararası İlişkiler alanında eğitimime devam ediyorum.</p>
+          <p>Bu kişisel platformda; uluslararası jeopolitik dengeler, kamu politikaları, strateji ve finansal okuryazarlık üzerine edindiğim deneyimleri, akademik notları ve analizlerimi derliyorum.</p>
+        </div>
+      )}
+    </div>
+  </article>
+</Layout>

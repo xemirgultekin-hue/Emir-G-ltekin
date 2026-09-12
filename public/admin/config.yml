@@ -23,7 +23,7 @@ collections:
       - { label: "İçerik", name: "body", widget: "markdown" }
 
   - name: "pages"
-    label: "Sabit Sayfalar (Hakkımda)"
+    label: "Hakkımda Sayfası"
     folder: "src/content/pages"
     create: false
     delete: false
