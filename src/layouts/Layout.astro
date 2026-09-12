@@ -1,11 +1,13 @@
 ---
+import config from "../data/siteConfig.json";
+
 interface Props {
   title?: string;
   description?: string;
   [key: string]: any;
 }
 
-const { title = "Emir Gültekin", description = "Kişisel Notlar ve Analizler" } = Astro.props;
+const { title = config.siteTitle, description = config.siteSubtitle } = Astro.props;
 const today = new Date().toLocaleDateString("tr-TR", {
   weekday: "long",
   year: "numeric",
@@ -26,39 +28,111 @@ const today = new Date().toLocaleDateString("tr-TR", {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet">
     <style is:global>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
       body {
         background-color: #fbfaf6;
         color: #1a1a1a;
         font-family: 'Lora', Georgia, serif;
         line-height: 1.7;
-        padding-bottom: 40px;
+        overflow-x: hidden;
       }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      .container {
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 0 20px;
+      a { color: inherit; text-decoration: none; }
+      .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+      
+      .top-bar-wrapper {
+        border-bottom: 1px solid #dcd7ce;
+        background: #fbfaf6;
+        position: sticky;
+        top: 0;
+        z-index: 50;
       }
       .top-bar {
-        border-bottom: 1px solid #dcd7ce;
-        padding: 10px 0;
-        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        max-width: 860px;
+        margin: 0 auto;
         font-size: 0.75rem;
         letter-spacing: 2px;
         text-transform: uppercase;
         color: #666;
       }
+      
+      .hamburger-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 24px;
+        height: 16px;
+        padding: 0;
+        z-index: 100;
+      }
+      .hamburger-btn span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #1a1a1a;
+      }
+
+      .side-menu {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 300px;
+        height: 100vh;
+        background-color: #f4efe6;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+        z-index: 90;
+        transition: right 0.3s ease-in-out;
+        padding: 70px 30px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .side-menu.open { right: 0; }
+      .side-menu h4 {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border-bottom: 1px solid #1a1a1a;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+      }
+      .side-menu a {
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 6px 0;
+        border-bottom: 1px dashed #dcd7ce;
+      }
+      .side-menu a:hover { color: #b91c1c; }
+
+      .backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.4);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 80;
+      }
+      .backdrop.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
       .masthead {
         border-bottom: 3px double #1a1a1a;
-        padding: 35px 0 25px;
+        padding: 30px 0 20px;
         text-align: center;
       }
       .masthead h1 {
@@ -74,9 +148,24 @@ const today = new Date().toLocaleDateString("tr-TR", {
         font-style: italic;
         color: #555;
       }
+
+      .nav-bar {
+        border-bottom: 1px solid #1a1a1a;
+        padding: 10px 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+      }
+      .nav-bar a:hover { text-decoration: underline; }
+
       .hero-card {
         border-bottom: 1px solid #1a1a1a;
-        padding: 40px 0 35px;
+        padding: 35px 0;
         margin-bottom: 35px;
       }
       .hero-tag {
@@ -89,23 +178,15 @@ const today = new Date().toLocaleDateString("tr-TR", {
       }
       .hero-title {
         font-family: 'Playfair Display', Georgia, serif;
-        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
         font-weight: 700;
         line-height: 1.25;
-        margin-bottom: 14px;
-      }
-      .hero-title:hover {
-        text-decoration: underline;
-      }
-      .hero-desc {
-        font-size: 1.15rem;
-        color: #333;
         margin-bottom: 12px;
       }
-      .post-meta {
-        font-size: 0.8rem;
-        color: #777;
-      }
+      .hero-title:hover { text-decoration: underline; }
+      .hero-desc { font-size: 1.1rem; color: #333; margin-bottom: 12px; }
+      .post-meta { font-size: 0.8rem; color: #777; }
+
       .section-title {
         font-family: 'Playfair Display', Georgia, serif;
         font-size: 1.25rem;
@@ -122,59 +203,36 @@ const today = new Date().toLocaleDateString("tr-TR", {
         gap: 30px;
         margin-bottom: 50px;
       }
-      .archive-item {
-        border-bottom: 1px solid #e5e0d8;
-        padding-bottom: 20px;
-      }
+      .archive-item { border-bottom: 1px solid #e5e0d8; padding-bottom: 20px; }
       .archive-item h3 {
         font-family: 'Playfair Display', Georgia, serif;
-        font-size: 1.35rem;
+        font-size: 1.3rem;
         font-weight: 700;
         line-height: 1.3;
         margin-bottom: 8px;
       }
-      .archive-item h3:hover {
-        text-decoration: underline;
-      }
-      .archive-item p {
-        font-size: 0.95rem;
-        color: #444;
-        margin-bottom: 10px;
-      }
+      .archive-item h3:hover { text-decoration: underline; }
+      .archive-item p { font-size: 0.95rem; color: #444; margin-bottom: 10px; }
+
       .article-header {
         border-bottom: 1px solid #dcd7ce;
-        padding: 35px 0 20px;
+        padding: 30px 0 20px;
         margin-bottom: 30px;
         text-align: center;
       }
       .article-header h1 {
         font-family: 'Playfair Display', Georgia, serif;
-        font-size: clamp(2rem, 4.5vw, 3rem);
+        font-size: clamp(2rem, 4.5vw, 2.8rem);
         line-height: 1.25;
         margin-bottom: 15px;
       }
-      .article-body {
-        font-size: 1.15rem;
-        line-height: 1.85;
-        color: #1a1a1a;
-      }
-      .article-body p {
-        margin-bottom: 24px;
-      }
-      .article-body h2, .article-body h3 {
-        font-family: 'Playfair Display', Georgia, serif;
-        margin: 35px 0 15px;
-      }
-      .article-body blockquote {
-        border-left: 3px solid #1a1a1a;
-        padding-left: 18px;
-        font-style: italic;
-        margin: 25px 0;
-        color: #444;
-      }
+      .article-body { font-size: 1.15rem; line-height: 1.85; color: #1a1a1a; }
+      .article-body p { margin-bottom: 24px; }
+      .article-body h2, .article-body h3 { font-family: 'Playfair Display', Georgia, serif; margin: 35px 0 15px; }
+
       .footer {
         border-top: 1px solid #dcd7ce;
-        padding: 30px 0 20px;
+        padding: 30px 0 40px;
         text-align: center;
         font-size: 0.8rem;
         color: #777;
@@ -183,27 +241,65 @@ const today = new Date().toLocaleDateString("tr-TR", {
     </style>
   </head>
   <body>
-    <div class="top-bar">
-      {today} — İstanbul
+    <div class="top-bar-wrapper">
+      <div class="top-bar">
+        <span>{today} — {config.locationTag}</span>
+        <button class="hamburger-btn" id="menuToggle" aria-label="Menu Ac">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
 
-    <header class="masthead">
-      <div class="container">
-        <a href="/">
-          <h1>EMİR GÜLTEKİN</h1>
-        </a>
-        <p>Uluslararası İlişkiler, Küresel Strateji ve Kişisel Notlar</p>
-      </div>
+    <div class="backdrop" id="backdrop"></div>
+    <nav class="side-menu" id="sideMenu">
+      <h4>Menu</h4>
+      <a href="/">Ana Sayfa</a>
+      <a href="/hakkimda">Hakkimda</a>
+      {config.twitter && <a href={config.twitter} target="_blank" rel="noopener">X / Twitter</a>}
+      {config.linkedin && <a href={config.linkedin} target="_blank" rel="noopener">LinkedIn</a>}
+      {config.email && <a href={`mailto:${config.email}`}>Iletisim</a>}
+      <a href="/admin" style="margin-top: 20px; font-size: 0.8rem; color: #888;">Yonetim Paneli</a>
+    </nav>
+
+    <header class="masthead container">
+      <a href="/">
+        <h1>{config.siteTitle}</h1>
+      </a>
+      <p>{config.siteSubtitle}</p>
     </header>
 
-    <main class="container">
+    <nav class="nav-bar container">
+      <a href="/">Ana Sayfa</a>
+      <a href="/hakkimda">Hakkimda</a>
+      {config.twitter && <a href={config.twitter} target="_blank" rel="noopener">X / Twitter</a>}
+      {config.linkedin && <a href={config.linkedin} target="_blank" rel="noopener">LinkedIn</a>}
+      {config.email && <a href={`mailto:${config.email}`}>Iletisim</a>}
+    </nav>
+
+    <main class="container" style="padding-top: 25px;">
       <slot />
     </main>
 
     <footer class="footer">
       <div class="container">
-        <p>© {new Date().getFullYear()} Emir Gültekin. Tüm hakları saklıdır.</p>
+        <p>© {new Date().getFullYear()} {config.siteTitle}. {config.footerText}</p>
       </div>
     </footer>
+
+    <script>
+      const toggle = document.getElementById("menuToggle");
+      const sideMenu = document.getElementById("sideMenu");
+      const backdrop = document.getElementById("backdrop");
+
+      const toggleMenu = () => {
+        sideMenu?.classList.toggle("open");
+        backdrop?.classList.toggle("open");
+      };
+
+      toggle?.addEventListener("click", toggleMenu);
+      backdrop?.addEventListener("click", toggleMenu);
+    </script>
   </body>
 </html>
