@@ -1,0 +1,58 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map(post => ({
+    params: { slug: post.id.replace(/\.[^/.]+$/, "") },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`${post.data.title} | Emir Gültekin`} description={post.data.description}>
+  <article class="max-w-3xl mx-auto py-6">
+    <header class="border-b border-stone-300 pb-6 mb-8 text-center">
+      <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-4">
+        {post.data.title}
+      </h1>
+      
+      <div class="flex items-center justify-center gap-3 text-xs sm:text-sm text-stone-500">
+        <span>Yazar: <strong>Emir Gültekin</strong></span>
+        <span>•</span>
+        <span>{new Date(post.data.pubDatetime).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}</span>
+      </div>
+    </header>
+
+    {post.data.coverImage && (
+      <div class="mb-8 overflow-hidden aspect-[16/9] bg-stone-100">
+        <img 
+          src={post.data.coverImage} 
+          alt={post.data.title}
+          class="w-full h-full object-cover"
+        />
+      </div>
+    )}
+
+    <div class="prose prose-stone prose-lg max-w-none leading-relaxed text-stone-900 text-lg">
+      <Content />
+    </div>
+
+    <section class="mt-16 pt-8 border-t-2 border-stone-900">
+      <h3 class="text-2xl font-bold mb-6">Yorumlar</h3>
+      <div 
+        id="cusdis_thread"
+        data-host="https://cusdis.com"
+        data-app-id="98a12dc6-ecb4-4e92-95f7-873b88d30e38"
+        data-page-id={post.id}
+        data-page-url={Astro.url.href}
+        data-page-title={post.data.title}
+      ></div>
+      <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    </section>
+  </article>
+</Layout>
