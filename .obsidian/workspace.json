@@ -192,6 +192,7 @@
   },
   "active": "78012924cd9a2f70",
   "lastOpenFiles": [
+    "src/pages/posts/[...slug].astro",
     "src/pages/posts/[slug].astro",
     "src/content/posts/dynamic-og-images.md",
     "src/content/posts/how-to-add-latex-equations-in-blog-posts.md",
