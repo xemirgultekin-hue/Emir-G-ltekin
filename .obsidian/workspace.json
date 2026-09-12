@@ -192,6 +192,9 @@
   },
   "active": "78012924cd9a2f70",
   "lastOpenFiles": [
+    "public/admin/index.html",
+    "public/admin/config.yml",
+    "public/admin",
     "src/pages/posts/[...slug].astro",
     "src/pages/posts/[slug].astro",
     "src/content/posts/dynamic-og-images.md",
