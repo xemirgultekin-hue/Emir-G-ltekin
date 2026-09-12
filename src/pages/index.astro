@@ -13,29 +13,14 @@ const otherPosts = posts.slice(1);
 
 <Layout title="Emir Gültekin">
   {heroPost && (
-    <section class="border-b-2 border-stone-900 pb-10 mb-10">
-      <a href={`/posts/${getSlug(heroPost.id)}/`} class="group block">
-        {heroPost.data.coverImage && (
-          <div class="overflow-hidden mb-4 aspect-[16/9] bg-stone-200">
-            <img 
-              src={heroPost.data.coverImage} 
-              alt={heroPost.data.title}
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-        )}
-        <div class="text-xs uppercase font-bold text-red-700 tracking-wider mb-2">
-          Son Yazı / Manşet
-        </div>
-        <h1 class="text-3xl sm:text-4xl font-bold leading-tight group-hover:underline mb-3">
-          {heroPost.data.title}
-        </h1>
+    <section class="hero-card">
+      <a href={`/posts/${getSlug(heroPost.id)}/`}>
+        <div class="hero-tag">Son Yazı / Manşet</div>
+        <h2 class="hero-title">{heroPost.data.title}</h2>
         {heroPost.data.description && (
-          <p class="text-stone-700 text-base sm:text-lg leading-relaxed mb-3">
-            {heroPost.data.description}
-          </p>
+          <p class="hero-desc">{heroPost.data.description}</p>
         )}
-        <div class="text-xs text-stone-500">
+        <div class="post-meta">
           {new Date(heroPost.data.pubDatetime).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}
         </div>
       </a>
@@ -44,31 +29,16 @@ const otherPosts = posts.slice(1);
 
   {otherPosts.length > 0 && (
     <section>
-      <h2 class="text-xl font-bold border-b border-stone-300 pb-2 mb-6 uppercase tracking-wider">
-        Önceki Yazılar & Notlar
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <h2 class="section-title">Önceki Yazılar & Notlar</h2>
+      <div class="archive-grid">
         {otherPosts.map((post) => (
-          <article class="border-b border-stone-200 pb-6 group">
+          <article class="archive-item">
             <a href={`/posts/${getSlug(post.id)}/`}>
-              {post.data.coverImage && (
-                <div class="overflow-hidden mb-3 aspect-[16/10] bg-stone-100">
-                  <img 
-                    src={post.data.coverImage} 
-                    alt={post.data.title}
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              )}
-              <h3 class="text-xl font-bold leading-snug group-hover:underline mb-2">
-                {post.data.title}
-              </h3>
+              <h3>{post.data.title}</h3>
               {post.data.description && (
-                <p class="text-stone-600 text-sm line-clamp-2 mb-2">
-                  {post.data.description}
-                </p>
+                <p>{post.data.description}</p>
               )}
-              <div class="text-xs text-stone-400">
+              <div class="post-meta">
                 {new Date(post.data.pubDatetime).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}
               </div>
             </a>
