@@ -1,0 +1,22 @@
+backend:
+  name: github
+  repo: xemirgultekin-hue/Emir-G-ltekin
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "posts"
+    label: "Yazılar"
+    folder: "src/content/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Başlık", name: "title", widget: "string" }
+      - { label: "Yayın Tarihi", name: "pubDatetime", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss[Z]" }
+      - { label: "Özet / Manşet Cümlesi", name: "description", widget: "text", required: false }
+      - { label: "Kapak Görseli", name: "coverImage", widget: "image", required: false }
+      - { label: "Etiketler", name: "tags", widget: "list", default: ["genel"] }
+      - { label: "Taslak mı?", name: "draft", widget: "boolean", default: false }
+      - { label: "İçerik", name: "body", widget: "markdown" }
