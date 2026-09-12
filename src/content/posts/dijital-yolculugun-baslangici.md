@@ -1,7 +1,7 @@
 ---
 title: "Dijital Yolculuğun Başlangıcı"
-pubDatetime: 2026-08-25T10:00:00Z
-description: "Kişisel web sitemin ve blogumun ilk yazısı."
+pubDatetime: 2026-09-13T00:00:00Z
+description: "Kişisel web sitem ve analiz platformum yayında."
 draft: false
 tags:
   - genel

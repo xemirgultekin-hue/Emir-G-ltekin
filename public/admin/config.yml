@@ -3,20 +3,45 @@ backend:
   repo: xemirgultekin-hue/Emir-G-ltekin
   branch: main
 
-media_folder: "public/images"
-public_folder: "/images"
+media_folder: public/images
+public_folder: /images
 
 collections:
-  - name: "posts"
-    label: "Yazılar"
-    folder: "src/content/posts"
+  - name: posts
+    label: "Yazılar & Makaleler"
+    folder: src/content/posts
     create: true
-    slug: "{{slug}}"
+    delete: true
     fields:
       - { label: "Başlık", name: "title", widget: "string" }
-      - { label: "Yayın Tarihi", name: "pubDatetime", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss[Z]" }
-      - { label: "Özet / Manşet Cümlesi", name: "description", widget: "text", required: false }
+      - { label: "Yayın Tarihi", name: "pubDatetime", widget: "datetime" }
+      - { label: "Özet / Manşet", name: "description", widget: "string", required: false }
       - { label: "Kapak Görseli", name: "coverImage", widget: "image", required: false }
       - { label: "Etiketler", name: "tags", widget: "list", default: ["genel"] }
       - { label: "Taslak mı?", name: "draft", widget: "boolean", default: false }
       - { label: "İçerik", name: "body", widget: "markdown" }
+
+  - name: pages
+    label: "Hakkımda Sayfası"
+    folder: src/content/pages
+    create: false
+    delete: false
+    fields:
+      - { label: "Başlık", name: "title", widget: "string" }
+      - { label: "Açıklama", name: "description", widget: "string", required: false }
+      - { label: "İçerik", name: "body", widget: "markdown" }
+
+  - name: settings
+    label: "Site Genel Ayarları"
+    files:
+      - name: general
+        label: "Logo, Slogan ve Bağlantılar"
+        file: src/data/siteConfig.json
+        fields:
+          - { label: "Site Başlığı (Logo)", name: "siteTitle", widget: "string" }
+          - { label: "Alt Başlık / Slogan", name: "siteSubtitle", widget: "string" }
+          - { label: "Şehir Notu", name: "locationTag", widget: "string" }
+          - { label: "X (Twitter) Linki", name: "twitter", widget: "string", required: false }
+          - { label: "LinkedIn Linki", name: "linkedin", widget: "string", required: false }
+          - { label: "E-Posta Adresi", name: "email", widget: "string", required: false }
+          - { label: "Footer Metni", name: "footerText", widget: "string" }
