@@ -19,26 +19,15 @@ const { Content } = await render(post);
     <header class="article-header">
       <h1>{post.data.title}</h1>
       <div class="post-meta">
-        <span>Yazar: <strong>Emir Gültekin</strong></span> • 
-        <span>{new Date(post.data.pubDatetime).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}</span>
+        {post.data.pubDatetime.toLocaleDateString("tr-TR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
       </div>
     </header>
-
     <div class="article-body">
       <Content />
     </div>
-
-    <section style="margin-top: 50px; padding-top: 30px; border-top: 2px solid #1a1a1a;">
-      <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; margin-bottom: 20px;">Yorumlar</h3>
-      <div 
-        id="cusdis_thread"
-        data-host="https://cusdis.com"
-        data-app-id="98a12dc6-ecb4-4e92-95f7-873b88d30e38"
-        data-page-id={post.id}
-        data-page-url={Astro.url.href}
-        data-page-title={post.data.title}
-      ></div>
-      <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-    </section>
   </article>
 </Layout>

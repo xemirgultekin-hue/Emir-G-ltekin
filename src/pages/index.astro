@@ -1,47 +1,58 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import config from "../data/siteConfig.json";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("posts", ({ data }) => !data.draft))
-  .sort((a, b) => new Date(b.data.pubDatetime).getTime() - new Date(a.data.pubDatetime).getTime());
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDatetime.getTime() - a.data.pubDatetime.getTime()
+);
 
-const getSlug = (id: string) => id.replace(/\.[^/.]+$/, "");
-
-const heroPost = posts[0];
-const otherPosts = posts.slice(1);
+const heroPost = sortedPosts[0];
+const otherPosts = sortedPosts.slice(1);
 ---
 
-<Layout title="Emir Gültekin">
+<Layout>
   {heroPost && (
-    <section class="hero-card">
-      <a href={`/posts/${getSlug(heroPost.id)}/`}>
-        <div class="hero-tag">Son Yazı / Manşet</div>
-        <h2 class="hero-title">{heroPost.data.title}</h2>
-        {heroPost.data.description && (
-          <p class="hero-desc">{heroPost.data.description}</p>
-        )}
-        <div class="post-meta">
-          {new Date(heroPost.data.pubDatetime).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}
-        </div>
-      </a>
-    </section>
+    <article class="hero-card">
+      {config.tagText && <div class="hero-tag">{config.tagText}</div>}
+      <h2 class="hero-title">
+        <a href={`/posts/${heroPost.id.replace(/\.[^/.]+$/, "")}`}>
+          {heroPost.data.title}
+        </a>
+      </h2>
+      {heroPost.data.description && <p class="hero-desc">{heroPost.data.description}</p>}
+      <div class="post-meta">
+        {heroPost.data.pubDatetime.toLocaleDateString("tr-TR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
+      </div>
+    </article>
   )}
 
   {otherPosts.length > 0 && (
-    <section>
-      <h2 class="section-title">Önceki Yazılar & Notlar</h2>
-      <div class="archive-grid">
+    <section style="margin-top: 30px;">
+      <h3 style="font-family: var(--headingFont); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 8px; margin-bottom: 20px;">
+        DİĞER YAZILAR VE ARŞİV
+      </h3>
+      <div>
         {otherPosts.map((post) => (
           <article class="archive-item">
-            <a href={`/posts/${getSlug(post.id)}/`}>
-              <h3>{post.data.title}</h3>
-              {post.data.description && (
-                <p>{post.data.description}</p>
-              )}
-              <div class="post-meta">
-                {new Date(post.data.pubDatetime).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" })}
-              </div>
-            </a>
+            <h3>
+              <a href={`/posts/${post.id.replace(/\.[^/.]+$/, "")}`}>
+                {post.data.title}
+              </a>
+            </h3>
+            {post.data.description && <p>{post.data.description}</p>}
+            <div class="post-meta">
+              {post.data.pubDatetime.toLocaleDateString("tr-TR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </div>
           </article>
         ))}
       </div>

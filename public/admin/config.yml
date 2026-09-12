@@ -16,14 +16,14 @@ collections:
     fields:
       - { label: "Başlık", name: "title", widget: "string" }
       - { label: "Yayın Tarihi", name: "pubDatetime", widget: "datetime" }
-      - { label: "Özet / Manşet", name: "description", widget: "text", required: false }
+      - { label: "Özet / Manşet Spotu", name: "description", widget: "text", required: false }
       - { label: "Kapak Görseli", name: "coverImage", widget: "image", required: false }
       - { label: "Etiketler", name: "tags", widget: "list", default: ["genel"] }
       - { label: "Taslak mı?", name: "draft", widget: "boolean", default: false }
       - { label: "İçerik", name: "body", widget: "markdown" }
 
   - name: "pages"
-    label: "Hakkımda Sayfası"
+    label: "Sabit Sayfalar (Hakkımda)"
     folder: "src/content/pages"
     create: false
     delete: false
@@ -39,16 +39,44 @@ collections:
       preview: false
     files:
       - name: "general"
-        label: "Tüm Başlıklar, Menüler ve Linkler"
+        label: "Başlıklar, Menüler ve Linkler"
         file: "src/data/siteConfig.json"
         fields:
-          - { label: "Site Ana Başlığı (Logo Metni)", name: "siteTitle", widget: "string" }
+          - { label: "Site Ana Başlığı (Logo)", name: "siteTitle", widget: "string" }
           - { label: "Alt Başlık / Slogan", name: "siteSubtitle", widget: "string" }
-          - { label: "Şehir / Konum Metni", name: "locationTag", widget: "string" }
+          - { label: "Şehir / Konum", name: "locationTag", widget: "string" }
           - label: "Menü ve Bağlantı Butonları"
             name: "navLinks"
             widget: "list"
             fields:
-              - { label: "Butonda Görünen İsim (Örn: X, Zort, İletişim)", name: "label", widget: "string" }
-              - { label: "Tıklanınca Gideceği Adres (URL veya /hakkimda)", name: "url", widget: "string" }
+              - { label: "Buton Adı (Örn: X, Zort, Makaleler)", name: "label", widget: "string" }
+              - { label: "Bağlantı Linki (URL veya /hakkimda)", name: "url", widget: "string" }
           - { label: "Footer Telif Metni", name: "footerText", widget: "string" }
+
+      - name: "design"
+        label: "Tasarım, Renk ve Tipografi"
+        file: "src/data/siteConfig.json"
+        fields:
+          - { label: "Manşet Etiket Metni", name: "tagText", widget: "string", default: "SON YAZI / MANŞET" }
+          - { label: "Manşet Etiket Rengi (Örn: #b91c1c, #1e3a8a, #000000)", name: "tagColor", widget: "string", default: "#b91c1c" }
+          - { label: "Başlıkların Rengi (Hex kodu)", name: "headingColor", widget: "string", default: "#1a1a1a" }
+          - { label: "Gövde Metin Rengi (Hex kodu)", name: "textColor", widget: "string", default: "#1a1a1a" }
+          - { label: "Sayfa Arka Plan Rengi (Hex kodu)", name: "bgColor", widget: "string", default: "#fbfaf6" }
+          - label: "Başlık Yazı Tipi (Font)"
+            name: "headingFont"
+            widget: "select"
+            options: ["Playfair Display", "Merriweather", "EB Garamond", "Cinzel", "Lora", "Inter", "Georgia"]
+            default: "Playfair Display"
+          - label: "Gövde Yazı Tipi (Font)"
+            name: "bodyFont"
+            widget: "select"
+            options: ["Lora", "Merriweather", "EB Garamond", "Georgia", "Inter"]
+            default: "Lora"
+          - label: "Başlık Punto Boyutu"
+            name: "headingScale"
+            widget: "select"
+            options:
+              - { label: "Standart Gazete Boyutu", value: "normal" }
+              - { label: "Büyük Manşet", value: "large" }
+              - { label: "Ekstra Büyük Manşet", value: "xlarge" }
+            default: "normal"
