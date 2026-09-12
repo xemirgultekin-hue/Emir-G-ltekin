@@ -5,6 +5,8 @@ import { getCollection } from "astro:content";
 const posts = (await getCollection("posts", ({ data }) => !data.draft))
   .sort((a, b) => new Date(b.data.pubDatetime).getTime() - new Date(a.data.pubDatetime).getTime());
 
+const getSlug = (id: string) => id.replace(/\.[^/.]+$/, "");
+
 const heroPost = posts[0];
 const otherPosts = posts.slice(1);
 ---
@@ -12,7 +14,7 @@ const otherPosts = posts.slice(1);
 <Layout title="Emir Gültekin">
   {heroPost && (
     <section class="border-b-2 border-stone-900 pb-10 mb-10">
-      <a href={`/posts/${heroPost.id}/`} class="group block">
+      <a href={`/posts/${getSlug(heroPost.id)}/`} class="group block">
         {heroPost.data.coverImage && (
           <div class="overflow-hidden mb-4 aspect-[16/9] bg-stone-200">
             <img 
@@ -48,7 +50,7 @@ const otherPosts = posts.slice(1);
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {otherPosts.map((post) => (
           <article class="border-b border-stone-200 pb-6 group">
-            <a href={`/posts/${post.id}/`}>
+            <a href={`/posts/${getSlug(post.id)}/`}>
               {post.data.coverImage && (
                 <div class="overflow-hidden mb-3 aspect-[16/10] bg-stone-100">
                   <img 
