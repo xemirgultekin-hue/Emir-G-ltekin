@@ -1,14 +1,15 @@
 ---
-author: Emir Gültekin
-pubDatetime: 2026-08-25T16:05:00Z
 title: Dijital Yolculuğun Başlangıcı
-postSlug: dijital-yolculugun-baslangici
-featured: true
-draft: false
+pubDatetime: 2026-08-25T16:05:00Z
+description: Kişisel web sitemin ve blogumun ilk yazısı.
+coverImage: ''
 tags:
   - genel
   - kisisel
-description: Kişisel web sitemin ve blogumun ilk yazısı.
+draft: false
+author: Emir Gültekin
+featured: true
+postSlug: dijital-yolculugun-baslangici
 ---
 
 Kendi alan adım altında ilk blog yazımı yayımlıyorum. 
