@@ -1,7 +1,7 @@
 ---
 title: YAPAY ZEKAYI ÖLDÜRECEĞİZ
 pubDatetime: 2026-09-13T00:00:00Z
-description: Kişisel web sitem ve analiz platformum yayında.
+description: ÇOK YAKINDA...
 coverImage: ''
 tags:
   - genel
