@@ -2,14 +2,6 @@
   "siteTitle": "EMİR GÜLTEKİN",
   "siteSubtitle": "Uluslararası İlişkiler, Küresel Strateji ve Siyaset Bilimi",
   "locationTag": "İstanbul",
-  "tagText": "SON YAZI / MANŞET",
-  "tagColor": "#b91c1c",
-  "headingColor": "#1a1a1a",
-  "textColor": "#1a1a1a",
-  "bgColor": "#fbfaf6",
-  "headingFont": "Playfair Display",
-  "bodyFont": "Lora",
-  "headingScale": "normal",
   "navLinks": [
     {
       "label": "Ana Sayfa",
@@ -21,7 +13,7 @@
     },
     {
       "label": "X",
-      "url": "https://x.com/xemirgultekin"
+      "url": "c"
     },
     {
       "label": "linkedin",
@@ -32,5 +24,13 @@
       "url": "mailto:xemirgultekin@gmail.com"
     }
   ],
-  "footerText": "Tüm hakları saklıdır."
+  "footerText": "Tüm hakları saklıdır.",
+  "bgColor": "#fbfaf6",
+  "bodyFont": "Lora",
+  "headingColor": "#1a1a1a",
+  "headingFont": "Playfair Display",
+  "headingScale": "normal",
+  "tagColor": "#b91c1c",
+  "tagText": "SON YAZI / MANŞET",
+  "textColor": "#1a1a1a"
 }
