@@ -7,7 +7,9 @@ interface Props {
 }
 
 const { title = config.siteTitle, description = config.siteSubtitle } = Astro.props;
-const today = new Date().toLocaleDateString("tr-TR", {
+
+// Sunucu tarafı varsayılan tarih
+const fallbackDate = new Date().toLocaleDateString("tr-TR", {
   weekday: "long",
   year: "numeric",
   month: "long",
@@ -256,7 +258,10 @@ if (config.headingScale === "xlarge") headingMultiplier = 1.3;
   <body>
     <div class="top-bar-wrapper">
       <div class="top-bar">
-        <span>{today} — {config.locationTag}</span>
+        <!-- Canlı dinamik tarih alanı -->
+        <span id="liveDateDisplay" data-location={config.locationTag || "İstanbul"}>
+          {fallbackDate} — {config.locationTag || "İstanbul"}
+        </span>
         <button class="hamburger-btn" id="menuToggle" aria-label="Menü Aç">
           <span></span>
           <span></span>
@@ -301,6 +306,21 @@ if (config.headingScale === "xlarge") headingMultiplier = 1.3;
     </footer>
 
     <script>
+      // 1. Canlı Tarih Güncelleyici (Tarayıcının gerçek anlık gününü alır)
+      const dateEl = document.getElementById("liveDateDisplay");
+      if (dateEl) {
+        const loc = dateEl.dataset.location || "İSTANBUL";
+        const now = new Date();
+        const dateString = now.toLocaleDateString("tr-TR", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+          weekday: "long"
+        });
+        dateEl.textContent = `${dateString.toLocaleUpperCase('tr-TR')} — ${loc.toLocaleUpperCase('tr-TR')}`;
+      }
+
+      // 2. Hamburger Menü Aç/Kapat
       const toggle = document.getElementById("menuToggle");
       const sideMenu = document.getElementById("sideMenu");
       const backdrop = document.getElementById("backdrop");
