@@ -25,3 +25,5 @@ export const LOGO_IMAGE = {
 };
 
 export const SOCIALS = [];
+
+export default SITE;
