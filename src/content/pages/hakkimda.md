@@ -1,8 +1,12 @@
 ---
-title: "Hakkımda"
-description: "Emir Gültekin — Biyografi ve Çalışma Alanları"
+title: Hakkımda
+description: Emir Gültekin — Biyografi ve Çalışma Alanları
 ---
 
-İstanbul Üniversitesi Siyasal Bilgiler Fakültesi, Siyaset Bilimi ve Uluslararası İlişkiler alanında eğitimime devam ediyorum.
+İsmim: Emir Gültekin
 
-Bu kişisel platformda; uluslararası jeopolitik dengeler, kamu politikaları, strateji ve finansal okuryazarlık üzerine edindiğim deneyimleri, akademik notları ve analizlerimi derliyorum.
+Dinim: İSLAM
+
+Milliyetim: TÜRK
+
+Amacım: ALLAH VE RESULÜNÜN YOLUNDA YAŞAMAK VE ÖLMEK
